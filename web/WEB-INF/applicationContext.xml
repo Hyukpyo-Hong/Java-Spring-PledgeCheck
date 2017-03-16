@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd"	
+>
+ 
+ <!-- 1)데이터소스 설정 DriverManagerDataSource 
+             클래스를 이용한다-->
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- JDBC 드라이버 클래스명을 설정  -->
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<!-- JDBC 접속 문자열 설정 -->
+		<property name="url">
+			<value>jdbc:oracle:thin:@127.0.0.1:1521:XE</value>
+		</property>
+		<!-- oracle 유저 ID 설정 -->
+		<property name="username">
+			<value>edu</value>
+		</property>
+		<!-- oracle 패스워드 설정 -->
+		<property name="password">
+			<value>1234</value>
+		</property>
+	</bean>
+	
+	<!--MyBatis 용 객체들 정의 -->
+	<bean id="sqlSessionFactory" 
+	      class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+        <!-- MapConfig 파일 있는 위치 
+        classpath: src 폴더-->
+        <property name="configLocation" 
+              value="classpath:MyBatisMapConfig.xml" />
+    </bean>
+    
+    <!--  configLocation 속성으로 한다  -->
+ 
+    <bean id="sm" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory"
+           ref="sqlSessionFactory" />
+    </bean>
+	 
+    
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

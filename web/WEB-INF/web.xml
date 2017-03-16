@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<servlet>
+	<servlet-name>pledge</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>pledge</servlet-name>
+	<url-pattern>*.go</url-pattern>
+	</servlet-mapping>
+	
+<!-- url *.go같은 확장자 안쓰는 설정. 스프링 3.0 이상부터 되는데, 추가 공부가 필요함. 
+http://blog.naver.com/jjhstr/60101376164
+http://lng1982.tistory.com/97 등등 참고했으나 설정파일 참고할 풀소스를 못 찾고, 
+일단 하위 버전부터 공부한다는 취지로 *.go로 진행함 -->
+
+</web-app>
